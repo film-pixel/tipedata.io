@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipe Data &amp; Penggunaannya - Referensi Lengkap + Studi Kasus</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --accent: #58a6ff;
+            --accent2: #79c0ff;
+            --green: #3fb950;
+            --orange: #d2991d;
+            --red: #f85149;
+            --purple: #a371f7;
+            --pink: #db61a2;
+            --teal: #39d2c0;
+            --yellow: #e3b341;
+            --code-bg: #1c2128;
+            --radius: 8px;
+            --radius-sm: 4px;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --transition: 0.2s ease;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 17, 23, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            gap: 1rem;
+        }
+        .top-nav .logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent2);
+            white-space: nowrap;
+            letter-spacing: -0.3px;
+        }
+        .top-nav .logo span {
+            color: var(--green);
+        }
+        .top-nav nav {
+            display: flex;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .top-nav nav a {
+            color: var(--text2);
+            text-decoration: none;
+            padding: 0.4rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .top-nav nav a:hover,
+        .top-nav nav a:focus {
+            color: var(--accent2);
+            background: var(--surface2);
+            outline: none;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            color: #f0f6fc;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        h1 .highlight {
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #f0f6fc;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--border);
+            letter-spacing: -0.3px;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin: 1.8rem 0 0.8rem;
+        }
+        h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #dce4ed;
+            margin: 1.4rem 0 0.6rem;
+        }
+        p {
+            margin: 0.7rem 0;
+            color: var(--text);
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text2);
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem 1.8rem;
+            margin: 1.2rem 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .card:hover {
+            border-color: #4a5568;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.2rem;
+            margin: 1.2rem 0;
+        }
+        .card-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.2rem 0;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 650px;
+        }
+        table thead th {
+            background: var(--surface2);
+            color: #e6edf3;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            white-space: nowrap;
+        }
+        table tbody td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        table tbody tr:hover {
+            background: var(--surface2);
+        }
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.55rem;
+            border-radius: 100px;
+            font-size: 0.73rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .badge-green {
+            background: rgba(63, 185, 80, 0.18);
+            color: var(--green);
+        }
+        .badge-orange {
+            background: rgba(210, 153, 29, 0.18);
+            color: var(--orange);
+        }
+        .badge-purple {
+            background: rgba(163, 113, 247, 0.18);
+            color: var(--purple);
+        }
+        .badge-teal {
+            background: rgba(57, 210, 192, 0.18);
+            color: var(--teal);
+        }
+        .badge-red {
+            background: rgba(248, 81, 73, 0.18);
+            color: var(--red);
+        }
+        .badge-pink {
+            background: rgba(219, 97, 162, 0.18);
+            color: var(--pink);
+        }
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+            font-size: 0.88rem;
+            background: var(--code-bg);
+            padding: 0.15rem 0.45rem;
+            border-radius: var(--radius-sm);
+            color: var(--orange);
+            border: 1px solid var(--border);
+            word-break: break-word;
+        }
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.2rem 1.4rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            line-height: 1.6;
+            position: relative;
+            font-size: 0.85rem;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            border: none;
+            color: #c9d1d9;
+            font-size: 0.85rem;
+        }
+        .code-lang {
+            position: absolute;
+            top: 0;
+            right: 1rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text2);
+            background: var(--surface2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            letter-spacing: 0.5px;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+        }
+        .kw { color: #ff7b72; }
+        .dt { color: #79c0ff; }
+        .str { color: #a5d6ff; }
+        .cm { color: #8b949e; font-style: italic; }
+        .num { color: #79c0ff; }
+        .fn { color: #d2a8ff; }
+        .info-box {
+            border-left: 4px solid var(--accent);
+            background: rgba(88, 166, 255, 0.06);
+            padding: 1rem 1.3rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 1.2rem 0;
+            font-size: 0.92rem;
+        }
+        .info-box.tip {
+            border-left-color: var(--green);
+            background: rgba(63, 185, 80, 0.06);
+        }
+        .info-box.warn {
+            border-left-color: var(--orange);
+            background: rgba(210, 153, 29, 0.06);
+        }
+        .info-box strong {
+            color: #f0f6fc;
+        }
+        .hierarchy {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            padding: 1.2rem;
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            font-size: 0.88rem;
+        }
+        .hierarchy-node {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            text-align: center;
+            color: #e6edf3;
+            white-space: nowrap;
+        }
+        .hierarchy-node.root {
+            background: rgba(88, 166, 255, 0.15);
+            border-color: var(--accent);
+            color: var(--accent2);
+        }
+        .hierarchy-arrow {
+            color: var(--text2);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text2);
+            font-size: 0.82rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+        footer a {
+            color: var(--accent2);
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.35rem; }
+            .top-nav { padding: 0 0.8rem; height: auto; flex-wrap: wrap; padding-top: 0.5rem; padding-bottom: 0.5rem; }
+            .top-nav nav a { font-size: 0.75rem; padding: 0.3rem 0.5rem; }
+            .container { padding: 1rem 1rem 3rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            pre { padding: 1rem; font-size: 0.78rem; }
+            .hierarchy { flex-direction: column; gap: 0.3rem; }
+            .hierarchy-arrow { transform: rotate(90deg); }
+        }
+        @media print {
+            body { background: #fff; color: #000; }
+            .top-nav { position: static; background: #fff; border-bottom: 2px solid #000; }
+            pre { background: #f5f5f5; border: 1px solid #ccc; }
+            code { background: #f0f0f0; color: #000; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-nav">
+        <div class="logo">📘 Modul<span>Pembelajaran Tipe</span>Data<</div>
+        <nav>
+            <a href="#pengantar">Pengantar</a>
+            <a href="#primitif">Primitif</a>
+            <a href="#komposit">Komposit</a>
+            <a href="#database">Database</a>
+            <a href="#konversi">Konversi</a>
+            <a href="#best-practice">Best Practice</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="pengantar">
+            <h1>📊 Tipe Data &amp; <span class="highlight">Penggunaannya</span></h1>
+            <p class="subtitle">
+                Referensi detail untuk <strong>Programmer</strong> dan <strong>DBA</strong> — diperkaya dengan pola penggunaan nyata, studi kasus industri, dan penjelasan mendalam kapan dan mengapa setiap tipe dipilih.
+            </p>
+            <div class="card">
+                <h3>🎯 Mengapa Pemilihan Tipe Data Sangat Penting?</h3>
+                <p>
+                    Tipe data bukan sekadar formalitas deklarasi. Keputusan ini memengaruhi:
+                </p>
+                <ul style="list-style: '▸ '; padding-left: 1.5rem; color: var(--text);">
+                    <li><strong>Performa Query & Indeks</strong> — Indeks pada <code>BIGINT</code> lebih lambat daripada <code>INT</code>; <code>VARCHAR</code> tanpa batas membuat key length besar.</li>
+                    <li><strong>Penyimpanan & Biaya Cloud</strong> — 1 miliar baris <code>TINYINT</code> vs <code>INT</code> menghemat ~3 GB.</li>
+                    <li><strong>Integritas Data</strong> — <code>DECIMAL</code> mencegah kesalahan pembulatan uang; <code>DATE</code> memvalidasi rentang otomatis.</li>
+                    <li><strong>Kompatibilitas API</strong> — Serialisasi JSON/XML bergantung pada tipe (misal: angka vs string).</li>
+                </ul>
+            </div>
+            <div class="hierarchy">
+                <span class="hierarchy-node root">TIPE DATA</span>
+                <span class="hierarchy-arrow">→</span>
+                <span class="hierarchy-node">Primitif / Skalar</span>
+                <span class="hierarchy-arrow">→</span>
+                <span class="hierarchy-node">Numerik</span>
+                <span class="hierarchy-node">Karakter</span>
+                <span class="hierarchy-node">Boolean</span>
+                <span class="hierarchy-arrow" style="color:var(--accent);">|</span>
+                <span class="hierarchy-node" style="border-color:var(--purple);color:var(--purple);">Komposit / Non-Primitif</span>
+                <span class="hierarchy-arrow">→</span>
+                <span class="hierarchy-node">Array</span>
+                <span class="hierarchy-node">Struct</span>
+                <span class="hierarchy-node">Object</span>
+                <span class="hierarchy-node">Collection</span>
+            </div>
+        </section>
+
+        <section id="primitif">
+            <h2>🔢 1. Tipe Data Primitif (Skalar) — Detail & Praktik Terbaik</h2>
+            <p>
+                Tipe primitif adalah atom penyusun aplikasi. Setiap sub-bagian kini dilengkapi dengan **konteks penggunaan sehari-hari** dan **pertimbangan desain yang sering muncul di production**.
+            </p>
+
+            <!-- INTEGER -->
+            <h3>1.1 Integer — Kapan Memilih Ukuran Tertentu?</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Tipe</th><th>Byte</th><th>Rentang Signed</th><th>Penggunaan Sangat Umum</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>TINYINT</code></td><td>1</td><td>-128..127</td><td>Status kode (0-5), flag boolean, rating bintang (1-5)</td></tr>
+                        <tr><td><code>SMALLINT</code></td><td>2</td><td>-32.768..32.767</td><td>Tahun (cukup), jumlah item keranjang, usia (0-120)</td></tr>
+                        <tr><td><code>INT</code></td><td>4</td><td>±2,1 milyar</td><td>ID internal pengguna, jumlah view, foreign key di sistem menengah</td></tr>
+                        <tr><td><code>BIGINT</code></td><td>8</td><td>±9,2 × 10¹⁸</td><td>Primary key di sistem besar (Twitter: snowflake ID), timestamp epoch ms</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-box tip">
+                <strong>💡 Pola Desain:</strong> Untuk primary key di aplikasi skala global, gunakan <code>BIGINT</code> (sering auto-increment) atau <code>UUID</code>. Namun, jika Anda memilih <code>INT</code> karena alasan performa, pastikan Anda memiliki strategi migrasi jika melewati 2 miliar baris (misal: sharding lebih awal).
+            </div>
+            <pre><span class="code-lang">Java / Go / SQL</span><code><span class="cm">// Java: Entity ID standar</span>
+        <span class="kw">public class</span> <span class="fn">User</span> {
+        <span class="dt">private</span> <span class="dt">Long</span> id;       <span class="cm">// BIGINT di DB</span>
+        <span class="dt">private</span> <span class="dt">Short</span> age;     <span class="cm">// SMALLINT</span>
+        <span class="dt">private</span> <span class="dt">Byte</span> status;   <span class="cm">// TINYINT</span>
+        }
+
+        <span class="cm">-- MySQL: DDL efisien</span>
+        <span class="kw">CREATE TABLE</span> orders (
+        order_id <span class="dt">BIGINT</span> <span class="kw">AUTO_INCREMENT PRIMARY KEY</span>,
+        user_id  <span class="dt">INT</span> <span class="kw">NOT NULL</span>,                <span class="cm">-- asumsi user < 2M</span>
+        quantity <span class="dt">SMALLINT</span> <span class="kw">NOT NULL DEFAULT</span> <span class="num">1</span>
+        );</code></pre>
+
+            <!-- FLOATING & DECIMAL -->
+            <h3>1.2 Floating Point & Decimal — Studi Kasus Keuangan</h3>
+            <p><strong>Detail:</strong> <code>FLOAT/DOUBLE</code> menggunakan basis 2, sehingga pecahan desimal seperti 0.1 tidak dapat direpresentasikan secara eksak. Dalam aplikasi fintech, sekali transaksi mungkin aman, tetapi akumulasi jutaan transaksi menyebabkan selisih (drift) yang tidak dapat ditoleransi.</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Skenario</th><th>Tipe Salah</th><th>Tipe Benar</th><th>Alasan</th></tr></thead>
+                    <tbody>
+                        <tr><td>Saldo rekening / e-wallet</td><td><code>FLOAT</code></td><td><code>DECIMAL(18,2)</code></td><td>Presisi absolut, tanpa pembulatan biner</td></tr>
+                        <tr><td>Harga saham (5 digit desimal)</td><td><code>DOUBLE</code></td><td><code>DECIMAL(15,5)</code></td><td>Regulasi bursa menuntut presisi eksak</td></tr>
+                        <tr><td>Koordinat GPS</td><td><code>DECIMAL</code></td><td><code>DOUBLE</code> / <code>FLOAT8</code></td><td>Butuh rentang besar, presisi ~15 digit cukup</td></tr>
+                        <tr><td>Persentase diskon</td><td><code>DOUBLE</code></td><td><code>DECIMAL(5,2)</code></td><td>0.00 - 100.00, tidak butuh floating point</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-box warn">
+                <strong>⚠️ Pengalaman Nyata:</strong> Banyak startup fintech awal menggunakan <code>DOUBLE</code> untuk saldo karena lebih sederhana. Setelah audit, mereka harus melakukan migrasi besar-besaran ke <code>NUMERIC</code>. Mulailah dengan benar sejak awal.
+            </div>
+            <pre><span class="code-lang">Python & SQL</span><code><span class="cm"># Python: JANGAN</span>
+        saldo = <span class="num">1000.50</span> + <span class="num">2000.30</span>   <span class="cm"># float, berisiko</span>
+
+        <span class="cm"># LAKUKAN</span>
+        <span class="kw">from</span> decimal <span class="kw">import</span> Decimal
+        saldo = Decimal(<span class="str">'1000.50'</span>) + Decimal(<span class="str">'2000.30'</span>)
+
+        <span class="cm">-- PostgreSQL: tipe uang khusus</span>
+        <span class="kw">CREATE TABLE</span> dompet (
+        user_id <span class="dt">INT</span>,
+        balance <span class="dt">NUMERIC</span>(<span class="num">18</span>, <span class="num">2</span>) <span class="kw">NOT NULL CHECK</span> (balance >= <span class="num">0</span>)
+        );</code></pre>
+
+            <!-- BOOLEAN -->
+            <h3>1.3 Boolean — Penggunaan di API dan Database</h3>
+            <p>
+                <strong>Pola sering dipakai:</strong> Flag seperti <code>is_active</code>, <code>is_verified</code>, <code>is_deleted</code>. Di REST API, boolean direpresentasikan sebagai <code>true/false</code> JSON. Di database, gunakan <code>BOOLEAN</code> (PostgreSQL) atau <code>TINYINT(1)</code> (MySQL). Jangan gunakan <code>CHAR(1)</code> 'Y'/'N' kecuali Anda di Oracle.
+            </p>
+            <div class="info-box tip">
+                <strong>💡 Indeks Boolean:</strong> Indeks pada kolom boolean saja jarang menguntungkan karena kardinalitas rendah (hanya 2-3 nilai). Namun, indeks komposit seperti <code>(is_active, last_login)</code> bisa sangat efektif untuk query "pengguna aktif yang terakhir login > 30 hari".
+            </div>
+
+            <!-- STRING -->
+            <h3>1.4 String & Teks — Panduan Ukuran dan Encoding</h3>
+            <p><strong>Detail penting:</strong> <code>VARCHAR(255)</code> sering dipakai karena dulu batas maksimum indeks MySQL, namun kini tidak relevan. Selalu pilih ukuran berdasarkan domain data:</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Data</th><th>Tipe Rekomendasi</th><th>Alasan</th></tr></thead>
+                    <tbody>
+                        <tr><td>Email</td><td><code>VARCHAR(254)</code></td><td>RFC 5321, bagian lokal 64 + @ + domain 255</td></tr>
+                        <tr><td>Username</td><td><code>VARCHAR(30)</code></td><td>Twitter 15, GitHub 39, ambil tengahnya</td></tr>
+                        <tr><td>No. Telepon</td><td><code>VARCHAR(20)</code></td><td>Maks internasional 15 digit + prefix '+'</td></tr>
+                        <tr><td>Alamat lengkap</td><td><code>TEXT</code></td><td>Bisa > 255, jarang di-search, tidak usah diindeks penuh</td></tr>
+                        <tr><td>Slug URL</td><td><code>VARCHAR(100)</code></td><td>Judul artikel, biasanya < 100 karakter</td></tr>
+                        <tr><td>Kode verifikasi</td><td><code>CHAR(6)</code></td><td>Fixed-length, lebih cepat dibanding VARCHAR</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>Encoding:</strong> Gunakan UTF-8 (<code>utf8mb4</code> di MySQL) untuk mendukung emoji dan karakter internasional. Perhatikan bahwa <code>CHAR(10)</code> dengan utf8mb4 bisa memakan 40 byte! Di PostgreSQL, cukup gunakan <code>VARCHAR</code> atau <code>TEXT</code> (encoding UTF-8 otomatis).</p>
+
+            <pre><span class="code-lang">Deklarasi Tepat</span><code><span class="cm">-- MySQL / MariaDB</span>
+        <span class="kw">CREATE TABLE</span> users (
+        email     <span class="dt">VARCHAR</span>(<span class="num">254</span>) <span class="kw">NOT NULL UNIQUE</span>,
+        phone     <span class="dt">VARCHAR</span>(<span class="num">20</span>) <span class="kw">NULL</span>,
+        otp_code  <span class="dt">CHAR</span>(<span class="num">6</span>) <span class="kw">NULL</span>,
+        bio       <span class="dt">TEXT</span> <span class="kw">NULL</span>        <span class="cm">-- tidak diindeks langsung</span>
+        ) <span class="kw">ENGINE</span>=InnoDB <span class="kw">DEFAULT CHARSET</span>=utf8mb4;</code></pre>
+
+            <!-- DATE & TIME -->
+            <h3>1.5 Tanggal & Waktu — Zona Waktu, Epoch, dan Query Rentang</h3>
+            <p><strong>Penggunaan paling sering:</strong> <code>created_at</code>, <code>updated_at</code>, <code>deleted_at</code>, <code>birth_date</code>. Dua pola utama:</p>
+            <ul style="list-style: '► '; padding-left: 1.5rem; color: var(--text);">
+                <li><strong>Timestamp UTC:</strong> Simpan semua waktu dalam UTC, konversi di frontend. Gunakan <code>TIMESTAMPTZ</code> (PG) atau <code>DATETIME</code> dengan kesadaran UTC.</li>
+                <li><strong>Event lokal:</strong> Janji temu dokter pukul 09:00 WIB harus tetap 09:00 meskipun zona berubah. Gunakan <code>TIME</code> + kolom zona terpisah.</li>
+            </ul>
+            <div class="info-box tip">
+                <strong>💡 Query Rentang Waktu:</strong> Indeks pada <code>created_at</code> sangat umum. Gunakan tipe <code>TIMESTAMP</code> (4 byte) jika rentang mencukupi (1970-2038), atau <code>DATETIME</code>/<code>TIMESTAMPTZ</code> untuk cakupan lebih luas. Hindari menyimpan waktu sebagai string <code>VARCHAR</code> — Anda akan kehilangan semua fungsi temporal.
+            </div>
+        </section>
+
+        <section id="komposit">
+            <h2>🧩 2. Tipe Data Komposit — Struktur Data dalam Aplikasi Modern</h2>
+            <p>Setiap tipe komposit memiliki peran spesifik. Berikut penjelasan berdasarkan kapan mereka muncul di kode produksi.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>📋 Array / Slice</h4>
+                    <p><strong>Penggunaan:</strong> Daftar tags, kategori, gambar produk. Di PostgreSQL <code>INTEGER[]</code> untuk menyimpan banyak foreign key tanpa tabel pivot (normalisasi vs performa).</p>
+                    <p><strong>Detail:</strong> Array di database menghilangkan kebutuhan JOIN, namun menyulitkan referential integrity. Gunakan jika data jarang berubah dan tidak perlu di-query secara relasional.</p>
+                </div>
+                <div class="card">
+                    <h4>🗂️ JSON/JSONB (Object)</h4>
+                    <p><strong>Paling sering:</strong> Konfigurasi fitur, metadata produk, payload dari webhook eksternal yang skemanya tidak stabil.</p>
+                    <p><strong>Detail:</strong> PostgreSQL <code>JSONB</code> mendukung indexing GIN sehingga query <code>@></code> (contains) sangat cepat. Jangan gunakan JSONB untuk data yang selalu di-join ke tabel lain.</p>
+                </div>
+                <div class="card">
+                    <h4>🔗 Map / Dictionary</h4>
+                    <p><strong>Penggunaan:</strong> Cache in-memory (Redis hash), konfigurasi key-value per pengguna. Di Python, <code>dict</code> adalah tulang punggung semua ORM dan framework.</p>
+                </div>
+                <div class="card">
+                    <h4>📦 Struct / Dataclass</h4>
+                    <p><strong>Penggunaan:</strong> DTO (Data Transfer Object), model domain. Di Go, <code>struct</code> digunakan untuk decoding JSON request dengan aman.</p>
+                    <p><strong>Detail:</strong> Di database PostgreSQL, Anda bisa membuat <code>COMPOSITE TYPE</code> sendiri, misal <code>address_type</code> (street, city, zip) dan menggunakannya sebagai tipe kolom.</p>
+                </div>
+            </div>
+            <pre><span class="code-lang">Go & PostgreSQL Composite</span><code><span class="cm">// Go struct untuk request API</span>
+        <span class="kw">type</span> <span class="fn">CreateOrderReq</span> <span class="kw">struct</span> {
+        UserID  <span class="dt">int64</span>   `json:<span class="str">"user_id"</span>`
+        Items   []<span class="dt">string</span> `json:<span class="str">"items"</span>`
+        Total   <span class="dt">float64</span> `json:<span class="str">"total"</span>`  <span class="cm">// seharusnya pakai decimal</span>
+        }
+
+        <span class="cm">-- PostgreSQL composite type</span>
+        <span class="kw">CREATE TYPE</span> alamat <span class="kw">AS</span> (
+        jalan <span class="dt">VARCHAR</span>(<span class="num">100</span>),
+        kota  <span class="dt">VARCHAR</span>(<span class="num">50</span>),
+        kode_pos <span class="dt">VARCHAR</span>(<span class="num">5</span>)
+        );
+
+        <span class="kw">CREATE TABLE</span> kantor (
+        id <span class="dt">INT</span>,
+        lokasi alamat
+        );</code></pre>
+
+            <!-- ===== ARRAY LEBIH DETAIL ===== -->
+            <h3>2.1 Array — Lebih dari Sekadar Daftar</h3>
+            <p>
+                Array adalah struktur data paling fundamental untuk menyimpan koleksi elemen bertipe sama. Penggunaannya sangat luas mulai dari logika bisnis hingga komunikasi API. Pemahaman mendalam tentang array di berbagai bahasa dan database akan menghindari jebakan desain.
+            </p>
+
+            <h4>📋 Array di Bahasa Pemrograman — Perbandingan Fitur</h4>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Bahasa</th><th>Deklarasi</th><th>Sifat</th><th>Operasi Kunci</th></tr></thead>
+                    <tbody>
+                        <tr><td>Python</td><td><code>list = [1, 2, 3]</code></td><td>Dinamis, heterogen</td><td><code>append()</code>, slice, list comprehension</td></tr>
+                        <tr><td>Java</td><td><code>int[] arr = new int[5];</code> atau <code>ArrayList&lt;Integer&gt;</code></td><td>Fixed-size (array), dinamis (List)</td><td><code>Arrays.copyOf</code>, <code>stream()</code></td></tr>
+                        <tr><td>Go</td><td><code>arr := [3]int{1,2,3}</code></td><td>Fixed-size (array), slice = referensi dinamis</td><td><code>append()</code>, <code>copy()</code>, slice capacity</td></tr>
+                        <tr><td>JavaScript</td><td><code>let arr = [1,2,3];</code></td><td>Dinamis, sparse diperbolehkan</td><td><code>map()</code>, <code>filter()</code>, <code>reduce()</code></td></tr>
+                        <tr><td>C#</td><td><code>int[] arr = new int[3];</code> atau <code>List&lt;int&gt;</code></td><td>Fixed atau dinamis</td><td>LINQ, <code>List.Add()</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>Penggunaan nyata:</strong></p>
+            <ul style="list-style: '▸ '; padding-left: 1.5rem;">
+                <li><strong>Python:</strong> Membaca file CSV menjadi list of dict, kemudian diproses dengan list comprehension.</li>
+                <li><strong>Go:</strong> Slice digunakan sebagai buffer untuk membaca data dari stream atau sebagai koleksi hasil query database (dengan <code>sqlx</code>).</li>
+                <li><strong>Java:</strong> API response sering dikembalikan sebagai <code>List&lt;UserDTO&gt;</code> dari controller.</li>
+            </ul>
+
+            <h4>🗄️ Array di PostgreSQL — Query dan Manipulasi</h4>
+            <p>PostgreSQL menyediakan tipe data array native. Ini sangat berguna untuk menyimpan data yang jarang di-relasikan secara penuh, misalnya tag produk, daftar permission, atau koordinat.</p>
+            <pre><span class="code-lang">PostgreSQL Array</span><code><span class="kw">CREATE TABLE</span> artikel (
+        id <span class="dt">SERIAL</span> <span class="kw">PRIMARY KEY</span>,
+        judul <span class="dt">VARCHAR</span>(<span class="num">200</span>),
+        tags <span class="dt">TEXT</span>[]   <span class="cm">-- array of text</span>
+        );
+        <span class="kw">INSERT INTO</span> artikel (judul, tags) <span class="kw">VALUES</span>
+        (<span class="str">'Belajar SQL'</span>, <span class="str">ARRAY['sql','database','pemula']</span>);
+
+        <span class="cm">-- Query: cari artikel yang punya tag 'database'</span>
+        <span class="kw">SELECT</span> * <span class="kw">FROM</span> artikel <span class="kw">WHERE</span> <span class="str">'database'</span> = <span class="kw">ANY</span>(tags);
+
+        <span class="cm">-- Menambah tag baru</span>
+        <span class="kw">UPDATE</span> artikel <span class="kw">SET</span> tags = array_append(tags, <span class="str">'latihan'</span>) <span class="kw">WHERE</span> id = <span class="num">1</span>;
+
+        <span class="cm">-- Indeks GIN untuk pencarian array</span>
+        <span class="kw">CREATE INDEX</span> idx_tags <span class="kw">ON</span> artikel <span class="kw">USING</span> GIN (tags);</code></pre>
+
+            <div class="info-box tip">
+                <strong>💡 Kapan Array di DB vs Tabel Pivot:</strong> Gunakan array jika elemen jarang di-update dan Anda hanya butuh query <code>ANY</code> atau <code>CONTAINS</code>. Jika Anda perlu JOIN ke tabel lain, rekomendasi foreign key, atau agregasi per tag, lebih baik pakai tabel pivot (normalisasi).
+            </div>
+
+            <h4>🧩 Array di Bahasa Modern — Studi Kasus: Transformasi Data</h4>
+            <p>Dalam microservices, data sering dikirim sebagai array JSON. Di backend, kita melakukan transformasi: filter, map, reduce. Contoh di Python:</p>
+            <pre><span class="code-lang">Python List Manipulation</span><code><span class="cm"># Data dari API eksternal</span>
+        orders = [
+        {<span class="str">"product"</span>: <span class="str">"Buku"</span>, <span class="str">"price"</span>: <span class="num">15000</span>},
+        {<span class="str">"product"</span>: <span class="str">"Pulpen"</span>, <span class="str">"price"</span>: <span class="num">3000</span>},
+        {<span class="str">"product"</span>: <span class="str">"Buku"</span>, <span class="str">"price"</span>: <span class="num">20000</span>}
+        ]
+
+        <span class="cm"># Total pendapatan dari buku saja</span>
+        buku_revenue = <span class="fn">sum</span>(o[<span class="str">'price'</span>] <span class="kw">for</span> o <span class="kw">in</span> orders <span class="kw">if</span> o[<span class="str">'product'</span>] == <span class="str">'Buku'</span>)
+        </code></pre>
+
+            <p>Di Go, dengan slice dan struct:</p>
+            <pre><span class="code-lang">Go Slice</span><code><span class="kw">type</span> <span class="fn">Order</span> <span class="kw">struct</span> { Product <span class="dt">string</span>; Price <span class="dt">int</span> }
+        orders := []<span class="fn">Order</span>{{<span class="str">"Buku"</span>, <span class="num">15000</span>}, {<span class="str">"Pulpen"</span>, <span class="num">3000</span>}, {<span class="str">"Buku"</span>, <span class="num">20000</span>}}
+        <span class="dt">var</span> total <span class="dt">int</span>
+        <span class="kw">for</span> _, o := <span class="kw">range</span> orders {
+        <span class="kw">if</span> o.Product == <span class="str">"Buku"</span> { total += o.Price }
+        }</code></pre>
+
+            <div class="info-box">
+                <strong>📦 Array vs Slice di Go:</strong> Array memiliki panjang tetap, slice adalah view fleksibel di atas array. Selalu gunakan slice untuk parameter fungsi, karena lebih idiomatis dan aman dari kopi data besar.
+            </div>
+        </section>
+
+        <section id="database">
+            <h2>🗄️ 3. Tipe Data Database — Panduan DBA dengan Contoh Nyata</h2>
+            <p>Tambahan penting: bagaimana tipe data dipilih dalam siklus desain database, beserta dampaknya pada storage engine.</p>
+
+            <h3>3.1 Memilih Auto-Increment vs UUID sebagai Primary Key</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>🔢 Auto-Increment <code>BIGINT</code></h4>
+                    <p><strong>Kelebihan:</strong> Cepat untuk insert berurutan, indeks rapat, mudah dibaca manusia.</p>
+                    <p><strong>Kekurangan:</strong> Bocor informasi (ID user terlihat), tidak cocok untuk sistem terdistribusi tanpa koordinasi.</p>
+                    <p><strong>Penggunaan:</strong> Hampir semua aplikasi monolitik, ERP internal.</p>
+                </div>
+                <div class="card">
+                    <h4>🆔 UUID / ULID</h4>
+                    <p><strong>Kelebihan:</strong> Dapat di-generate di client, unik global, aman diekspos.</p>
+                    <p><strong>Kekurangan:</strong> Indeks lebih besar (16 byte vs 8 byte BIGINT), fragmentasi halaman jika tidak diurutkan (gunakan ULID untuk temporal ordering).</p>
+                    <p><strong>Penggunaan:</strong> Microservices, aplikasi mobile dengan offline capability, public API.</p>
+                </div>
+            </div>
+            <pre><span class="code-lang">PostgreSQL ULID vs UUID</span><code><span class="kw">CREATE EXTENSION</span> <span class="kw">IF NOT EXISTS</span> <span class="str">"uuid-ossp"</span>;
+        <span class="kw">CREATE TABLE</span> orders (
+        id       <span class="dt">UUID</span> <span class="kw">DEFAULT</span> uuid_generate_v4() <span class="kw">PRIMARY KEY</span>,
+        <span class="cm">-- atau ULID (sebagai CHAR(26))</span>
+        ulid     <span class="dt">CHAR</span>(<span class="num">26</span>) <span class="kw">PRIMARY KEY</span>
+        );</code></pre>
+
+            <h3>3.2 JSONB di PostgreSQL — Kapan dan Bagaimana</h3>
+            <p><strong>Studi kasus umum:</strong> Marketplace menyimpan spesifikasi produk yang berbeda per kategori (baju: ukuran, warna; laptop: RAM, CPU). Daripada membuat puluhan tabel, simpan atribut dalam <code>JSONB</code> dengan indeks GIN. Query: "cari laptop dengan RAM 16GB" tetap cepat.</p>
+            <pre><span class="code-lang">Index GIN untuk JSONB</span><code><span class="kw">CREATE INDEX</span> idx_produk_spec <span class="kw">ON</span> produk <span class="kw">USING</span> GIN (data jsonb_path_ops);
+        <span class="kw">SELECT</span> * <span class="kw">FROM</span> produk
+        <span class="kw">WHERE</span> data @> <span class="str">'{"spesifikasi": {"ram": 16}}'</span>;</code></pre>
+            <div class="info-box warn">
+                <strong>⚠️ Anti-pattern:</strong> Jangan simpan seluruh payload API eksternal mentah di JSONB lalu melakukan query berat setiap saat. Ekstrak field yang sering di-query ke kolom biasa, sisanya di JSONB.
+            </div>
+
+            <h3>3.3 Tipe Data Spesial: ENUM, BIT, dan Domain</h3>
+            <p><strong>Penggunaan:</strong> <code>ENUM</code> di MySQL/PostgreSQL untuk status yang terdefinisi jelas (misal: <code>ENUM('pending','shipped','delivered')</code>). Keuntungan: penyimpanan efisien (1-2 byte), validasi otomatis. Kerugian: sulit diubah jika perlu menambah status baru tanpa ALTER TABLE.</p>
+            <p><strong>Alternatif modern:</strong> Gunakan <code>SMALLINT</code> dengan tabel referensi (lookup table) untuk fleksibilitas lebih, atau <code>CHECK</code> constraint di PostgreSQL.</p>
+
+            <!-- AUTO INCREMENT -->
+            <h3 id="auto-increment">3.4 AUTO_INCREMENT / SERIAL / IDENTITY — Jantung Surrogate Key</h3>
+            <p>
+                <strong>Auto-increment</strong> adalah mekanisme database untuk menghasilkan nilai integer unik secara otomatis, biasanya digunakan sebagai <em>primary key</em> pengganti (surrogate key). Setiap RDBMS memiliki sintaks berbeda, namun prinsipnya sama: nilai bertambah secara atomik setiap kali baris baru dimasukkan.
+            </p>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>RDBMS</th><th>Sintaks Standar</th><th>Tipe Data Pendukung</th><th>Catatan</th></tr></thead>
+                    <tbody>
+                        <tr><td>MySQL / MariaDB</td><td><code>INT AUTO_INCREMENT</code></td><td><code>TINYINT</code>, <code>SMALLINT</code>, <code>INT</code>, <code>BIGINT</code></td><td>Hanya satu kolom AUTO_INCREMENT per tabel; nilai dapat di-reset dengan ALTER TABLE.</td></tr>
+                        <tr><td>PostgreSQL</td><td><code>SERIAL</code> / <code>BIGSERIAL</code></td><td><code>INTEGER</code> (SERIAL), <code>BIGINT</code> (BIGSERIAL)</td><td>SERIAL adalah makro yang membuat SEQUENCE dan menetapkan DEFAULT nextval().</td></tr>
+                        <tr><td>SQL Server</td><td><code>INT IDENTITY(1,1)</code></td><td><code>TINYINT</code>, <code>SMALLINT</code>, <code>INT</code>, <code>BIGINT</code></td><td>IDENTITY(seed, increment) – seed nilai awal, increment langkah.</td></tr>
+                        <tr><td>Oracle</td><td colspan="3">Tidak ada AUTO_INCREMENT asli; gunakan <code>SEQUENCE</code> + trigger, atau <code>IDENTITY</code> di Oracle 12c+.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4>📐 Memilih Tipe Data untuk Auto-Increment</h4>
+            <ul style="list-style: '▸ '; padding-left: 1.5rem;">
+                <li><strong><code>TINYINT</code> (max 127 signed)</strong> — hanya untuk tabel referensi kecil (misal: kategori < 100).</li>
+                <li><strong><code>SMALLINT</code> (32.767)</strong> — masih berisiko untuk tabel transaksi yang cepat membesar.</li>
+                <li><strong><code>INT</code> (2,1 milyar)</strong> — cukup untuk banyak aplikasi menengah. Namun, jika sehari ada 1 juta transaksi, habis dalam 5-6 tahun.</li>
+                <li><strong><code>BIGINT</code> (9,2 × 10¹⁸)</strong> — standar emas untuk sistem modern.</li>
+            </ul>
+            <div class="info-box warn">
+                <strong>⚠️ Jebakan Overflow:</strong> Jika Anda memilih <code>INT</code> untuk tabel log atau event sourcing yang tumbuh cepat, suatu hari sistem akan mogok. Gunakan <code>BIGINT</code> sejak awal untuk tabel yang akan terus tumbuh.
+            </div>
+            <pre><span class="code-lang">Contoh Auto-Increment di Berbagai DB</span><code><span class="cm">-- MySQL</span>
+        <span class="kw">CREATE TABLE</span> transactions (
+        id <span class="dt">BIGINT</span> <span class="kw">AUTO_INCREMENT PRIMARY KEY</span>,
+        amount <span class="dt">DECIMAL</span>(<span class="num">12</span>,<span class="num">2</span>)
+        );
+
+        <span class="cm">-- PostgreSQL</span>
+        <span class="kw">CREATE TABLE</span> transactions (
+        id <span class="dt">BIGSERIAL</span> <span class="kw">PRIMARY KEY</span>,
+        amount <span class="dt">NUMERIC</span>(<span class="num">12</span>,<span class="num">2</span>)
+        );
+
+        <span class="cm">-- SQL Server</span>
+        <span class="kw">CREATE TABLE</span> transactions (
+        id <span class="dt">BIGINT</span> <span class="kw">IDENTITY</span>(<span class="num">1</span>,<span class="num">1</span>) <span class="kw">PRIMARY KEY</span>,
+        amount <span class="dt">DECIMAL</span>(<span class="num">12</span>,<span class="num">2</span>)
+        );</code></pre>
+
+            <!-- ===== JOIN LEBIH DETAIL ===== -->
+            <h3 id="join">3.5 JOIN — Fondasi Query Relasional yang Kuat</h3>
+            <p>
+                <strong>JOIN</strong> adalah operasi fundamental yang menggabungkan baris dari dua atau lebih tabel berdasarkan kondisi relasi. Pemahaman yang mendalam tentang berbagai tipe JOIN, dampak tipe data, dan strategi optimasi sangat penting untuk performa database.
+            </p>
+
+            <h4>🔗 Jenis-Jenis JOIN dan Kapan Menggunakannya</h4>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Tipe JOIN</th><th>Deskripsi</th><th>Hasil</th><th>Contoh Use Case</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="badge badge-teal">INNER JOIN</span></td><td>Hanya baris yang cocok di kedua tabel</td><td>Irisan</td><td>Dapatkan user yang sudah melakukan order</td></tr>
+                        <tr><td><span class="badge badge-green">LEFT JOIN</span></td><td>Semua baris dari tabel kiri, cocokan dari kanan (NULL jika tak ada)</td><td>Kiri + irisan</td><td>Daftar semua user beserta order terakhirnya (jika ada)</td></tr>
+                        <tr><td><span class="badge badge-orange">RIGHT JOIN</span></td><td>Semua baris dari tabel kanan</td><td>Kanan + irisan</td><td>Jarang dipakai; biasanya setara LEFT JOIN dengan urutan tabel dibalik</td></tr>
+                        <tr><td><span class="badge badge-purple">FULL OUTER JOIN</span></td><td>Gabungan semua baris dari kedua tabel</td><td>Gabungan</td><td>Mencari data yang tidak cocok di kedua sisi (rekonsiliasi)</td></tr>
+                        <tr><td><span class="badge badge-pink">CROSS JOIN</span></td><td>Produk Kartesian</td><td>n × m baris</td><td>Generate matrix kombinasi (hati-hati ledakan baris)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>📌 Penggunaan JOIN dalam Praktik — Multi-Table, Self-Join, Non-Equal</h4>
+            <p><strong>1. Multi-Table JOIN:</strong> Menggabungkan lebih dari dua tabel untuk laporan kompleks.</p>
+            <pre><span class="code-lang">Multi-Table JOIN</span><code><span class="kw">SELECT</span> u.name, o.order_date, p.product_name
+        <span class="kw">FROM</span> users u
+        <span class="kw">INNER JOIN</span> orders o <span class="kw">ON</span> u.id = o.user_id
+        <span class="kw">INNER JOIN</span> order_items oi <span class="kw">ON</span> o.id = oi.order_id
+        <span class="kw">INNER JOIN</span> products p <span class="kw">ON</span> oi.product_id = p.id
+        <span class="kw">WHERE</span> o.order_date >= <span class="fn">CURRENT_DATE</span> - <span class="num">7</span>;</code></pre>
+
+            <p><strong>2. Self-Join:</strong> Menghubungkan tabel dengan dirinya sendiri, misal untuk hierarki karyawan-manajer.</p>
+            <pre><span class="code-lang">Self-Join</span><code><span class="kw">SELECT</span> e.name <span class="kw">AS</span> employee, m.name <span class="kw">AS</span> manager
+        <span class="kw">FROM</span> employees e
+        <span class="kw">LEFT JOIN</span> employees m <span class="kw">ON</span> e.manager_id = m.id;</code></pre>
+
+            <p><strong>3. Non-Equi JOIN:</strong> Kondisi selain kesamaan (=), misal rentang atau <.</p>
+            <pre><span class="code-lang">Non-Equi JOIN</span><code><span class="kw">SELECT</span> a.name, b.name
+        <span class="kw">FROM</span> products a
+        <span class="kw">JOIN</span> products b <span class="kw">ON</span> a.price < b.price <span class="kw">AND</span> a.category_id = b.category_id;</code></pre>
+
+            <h4>💣 Masalah Klasik: Tipe Data Kolom JOIN Tidak Cocok</h4>
+            <p>Bayangkan <code>users.id</code> bertipe <code>BIGINT</code>, sedangkan <code>orders.user_id</code> bertipe <code>INT</code>. Saat Anda melakukan <code>JOIN</code>, database mungkin harus mengonversi tipe secara implisit. Akibatnya:</p>
+            <ul style="list-style: '✘ '; padding-left: 1.5rem;">
+                <li><strong>Indeks tidak digunakan</strong> — database melakukan full table scan.</li>
+                <li><strong>CPU overhead</strong> — konversi tipe per baris sangat mahal.</li>
+                <li><strong>Hasil tidak konsisten</strong> — bisa terjadi pemotongan nilai atau error overflow.</li>
+            </ul>
+            <pre><span class="code-lang">Contoh Masalah JOIN karena Tipe Tidak Cocok</span><code><span class="cm">-- Tabel users (id BIGINT)</span>
+        <span class="kw">CREATE TABLE</span> users (
+        id <span class="dt">BIGINT</span> <span class="kw">PRIMARY KEY</span>,
+        name <span class="dt">VARCHAR</span>(<span class="num">100</span>)
+        );
+        <span class="cm">-- Tabel orders (user_id INT) ❌</span>
+        <span class="kw">CREATE TABLE</span> orders (
+        order_id <span class="dt">INT</span> <span class="kw">PRIMARY KEY</span>,
+        user_id  <span class="dt">INT</span>,   <span class="cm">-- harusnya BIGINT</span>
+        amount   <span class="dt">DECIMAL</span>(<span class="num">10</span>,<span class="num">2</span>)
+        );
+        <span class="cm">-- Query JOIN — lambat!</span>
+        <span class="kw">EXPLAIN</span> <span class="kw">SELECT</span> u.name, o.amount
+        <span class="kw">FROM</span> users u
+        <span class="kw">JOIN</span> orders o <span class="kw">ON</span> u.id = o.user_id;
+        <span class="cm">-- MySQL akan menunjukkan 'Using where; Using index' atau full scan.</span></code></pre>
+            <div class="info-box warn">
+                <strong>⚠️ Perbaikan:</strong> Ubah <code>orders.user_id</code> menjadi <code>BIGINT</code> agar cocok dengan <code>users.id</code>. Ini akan mengembalikan penggunaan indeks dan performa optimal.
+            </div>
+
+            <h4>✅ Aturan Emas JOIN dan Tipe Data</h4>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>🎯 Primary Key = Foreign Key</h4>
+                    <p>Selalu gunakan tipe data yang <strong>persis sama</strong> (termasuk signed/unsigned, panjang VARCHAR, charset) untuk primary key dan foreign key yang merujuknya.</p>
+                </div>
+                <div class="card">
+                    <h4>🔍 Indeks Kolom Foreign Key</h4>
+                    <p>Buat indeks pada setiap foreign key. Tanpa indeks, operasi <code>JOIN</code> atau <code>ON DELETE CASCADE</code> bisa menjadi bencana performa.</p>
+                </div>
+                <div class="card">
+                    <h4>🧹 Hindari JOIN pada Kolom Terkalkulasi</h4>
+                    <p>Jangan: <code>ON UPPER(a.name) = UPPER(b.name)</code> — indeks tidak akan terpakai. Simpan data dalam bentuk yang sudah dinormalisasi.</p>
+                </div>
+                <div class="card">
+                    <h4>📏 VARCHAR JOIN: Perhatikan Charset & Collation</h4>
+                    <p>Dua kolom <code>VARCHAR(50)</code> tetapi dengan collation berbeda (utf8mb4_general_ci vs latin1_swedish_ci) tidak bisa di-JOIN tanpa konversi. Pastikan charset identik.</p>
+                </div>
+            </div>
+
+            <pre><span class="code-lang">Praktik Benar: JOIN dengan Tipe Cocok</span><code><span class="cm">-- Perbaikan: orders.user_id BIGINT</span>
+        <span class="kw">CREATE TABLE</span> orders_new (
+        order_id <span class="dt">BIGINT</span> <span class="kw">PRIMARY KEY</span>,
+        user_id  <span class="dt">BIGINT</span> <span class="kw">NOT NULL</span>,
+        amount   <span class="dt">DECIMAL</span>(<span class="num">10</span>,<span class="num">2</span>),
+        <span class="kw">INDEX</span> idx_user (user_id),   <span class="cm">-- indeks foreign key</span>
+        <span class="kw">FOREIGN KEY</span> (user_id) <span class="kw">REFERENCES</span> users(id)
+        );
+
+        <span class="kw">SELECT</span> u.name, o.amount
+        <span class="kw">FROM</span> users u
+        <span class="kw">JOIN</span> orders_new o <span class="kw">ON</span> u.id = o.user_id;  <span class="cm">-- menggunakan indeks</span></code></pre>
+
+            <h4>📊 Visualisasi: Performa JOIN dengan Tipe Cocok vs Tidak Cocok</h4>
+            <p>Pada tabel users 10 juta baris dan orders 50 juta baris, JOIN dengan tipe <code>BIGINT</code> cocok membutuhkan ~2 detik menggunakan indeks. Jika tidak cocok (konversi implisit), query bisa memakan waktu > 2 menit dan membebani CPU.</p>
+
+            <div class="info-box tip">
+                <strong>💡 Pro Tip:</strong> Gunakan <code>EXPLAIN</code> (MySQL/PostgreSQL) atau <code>SET STATISTICS IO ON</code> (SQL Server) untuk memeriksa apakah JOIN menggunakan indeks. Cari kata "Using index", "Index Scan", vs "Seq Scan" / "Full Table Scan".
+            </div>
+
+            <h4>🔄 JOIN dengan JSON dan Array di PostgreSQL</h4>
+            <p>Anda bisa melakukan JOIN antara kolom array dengan tabel lain menggunakan <code>UNNEST</code> atau antara data JSONB dengan kolom biasa.</p>
+            <pre><span class="code-lang">JOIN Array dengan UNNEST</span><code><span class="cm">-- Tabel produk dengan array kategori</span>
+        <span class="kw">CREATE TABLE</span> products (
+        id <span class="dt">SERIAL</span> <span class="kw">PRIMARY KEY</span>,
+        name <span class="dt">VARCHAR</span>(<span class="num">50</span>),
+        category_ids <span class="dt">INT</span>[]
+        );
+        <span class="kw">SELECT</span> p.name, c.category_name
+        <span class="kw">FROM</span> products p
+        <span class="kw">CROSS JOIN</span> <span class="fn">UNNEST</span>(p.category_ids) <span class="kw">AS</span> cat_id
+        <span class="kw">JOIN</span> categories c <span class="kw">ON</span> c.id = cat_id;</code></pre>
+        </section>
+
+        <section id="konversi">
+            <h2>🔄 4. Konversi Tipe Data & Bahaya Implicit Coercion</h2>
+            <p>Detail skenario yang sering menyebabkan bug di production:</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Kasus</th><th>Contoh</th><th>Akibat</th></tr></thead>
+                    <tbody>
+                        <tr><td>String + Int di JavaScript</td><td><code>"5" + 2 → "52"</code></td><td>Kesalahan logika total</td></tr>
+                        <tr><td>Perbandingan long vs int</td><td>Java: <code>Long(128) == Long(128)</code> false (cache -128..127)</td><td>Bug caching tidak terduga</td></tr>
+                        <tr><td>SQL VARCHAR banding INT</td><td><code>WHERE id = '10'</code> (id INT) — MySQL mengonversi string ke int, indeks tetap jalan, tapi jika string berisi teks bisa lambat</td><td>Performa menurun drastis</td></tr>
+                        <tr><td>Float ke Decimal</td><td><code>Decimal(0.1)</code> menghasilkan Decimal('0.1000000000000000055511...')</td><td>Presisi rusak</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>Solusi:</strong> Selalu eksplisit. Di JavaScript gunakan <code>Number()</code>, <code>parseInt()</code> dengan radix. Di SQL, gunakan <code>CAST</code> atau <code>::</code>. Di bahasa strongly-typed, percayakan compiler.</p>
+        </section>
+
+        <section id="best-practice">
+            <h2>🏆 5. Best Practice — Dari Pengalaman Industri</h2>
+            <p>Berikut adalah kumpulan aturan yang sudah teruji di berbagai sistem production skala besar.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>📏 1. Right-sizing: Hemat Penyimpanan = Hemat Biaya</h4>
+                    <p>Di cloud, IOPS dan storage mahal. Memilih <code>INT</code> (4 byte) untuk kolom yang hanya menampung 0-100 adalah pemborosan 3 byte per baris. Untuk 1 miliar baris, itu berarti ~3 GB ruang + backup + replikasi.</p>
+                </div>
+                <div class="card">
+                    <h4>🔒 2. Keuangan: Always <code>DECIMAL</code></h4>
+                    <p>Di sistem perbankan, <code>DECIMAL(18,4)</code> adalah standar. Bahkan untuk e-commerce, gunakan <code>DECIMAL(12,2)</code> untuk harga. Jangan pernah <code>FLOAT</code>.</p>
+                </div>
+                <div class="card">
+                    <h4>📅 3. Waktu: UTC + <code>TIMESTAMPTZ</code> adalah Teman</h4>
+                    <p>Aplikasi global (SaaS) wajib menyimpan waktu dalam UTC. PostgreSQL <code>TIMESTAMPTZ</code> menyimpan UTC, menampilkan sesuai sesi timezone. Hindari <code>DATETIME</code> polos tanpa zona.</p>
+                </div>
+                <div class="card">
+                    <h4>🔗 4. Foreign Key: Cocokkan Tipe Persis</h4>
+                    <p>Jika <code>users.id</code> adalah <code>BIGINT</code>, maka <code>orders.user_id</code> harus <code>BIGINT</code>. Ketidakcocokan menyebabkan full table scan saat join, bahkan jika indeks ada.</p>
+                </div>
+                <div class="card">
+                    <h4>📝 5. String: Jangan <code>VARCHAR(MAX)</code> sembarangan</h4>
+                    <p>Batas yang masuk akal mencegah data sampah dan mempercepat indeks. Email 254, nama 100, URL 2048. Gunakan <code>TEXT</code> hanya jika benar-benar perlu.</p>
+                </div>
+                <div class="card">
+                    <h4>🗜️ 6. JSONB untuk Fleksibilitas, Bukan Pengganti Relasional</h4>
+                    <p>Gunakan JSONB untuk atribut yang bervariasi antar entitas (spesifikasi produk). Data yang selalu ada dan di-join (user, order) tetap di tabel normal.</p>
+                </div>
+                <div class="card">
+                    <h4>✅ 7. Constraint Database > Validasi Aplikasi</h4>
+                    <p>Tambahkan <code>CHECK</code> (umur >= 0), <code>UNIQUE</code>, <code>FOREIGN KEY</code> di database sebagai lapisan pertahanan terakhir. Aplikasi bisa saja di-bypass.</p>
+                </div>
+                <div class="card">
+                    <h4>🧹 8. Hindari NULL yang Tidak Perlu</h4>
+                    <p>NULL memperumit agregasi dan logika. Gunakan <code>NOT NULL DEFAULT ...</code> untuk kolom seperti <code>is_active</code> (default true). NULL hanya untuk data yang benar-benar opsional.</p>
+                </div>
+            </div>
+            <h3>📋 Cheat Sheet Praktis: Tipe Data untuk Kebutuhan Umum</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Kebutuhan</th><th>Tipe Ideal</th><th>Catatan</th></tr></thead>
+                    <tbody>
+                        <tr><td>ID unik global</td><td><code>UUID</code> atau <code>BIGSERIAL</code></td><td>UUID untuk distributed, Serial untuk monolith</td></tr>
+                        <tr><td>Harga produk</td><td><code>NUMERIC(12,2)</code></td><td>2 desimal cukup untuk sebagian besar mata uang</td></tr>
+                        <tr><td>Stok barang</td><td><code>INT</code> atau <code>SMALLINT</code></td><td>Jangan pakai BIGINT kecuali stok > 2M</td></tr>
+                        <tr><td>Rating (1-5)</td><td><code>TINYINT</code></td><td>1 byte, validasi CHECK (rating BETWEEN 1 AND 5)</td></tr>
+                        <tr><td>Nama depan</td><td><code>VARCHAR(50)</code></td><td>Nama terpanjang di dunia ~40 karakter</td></tr>
+                        <tr><td>Alamat email</td><td><code>VARCHAR(254)</code></td><td>Indeks unique, lowercase simpan</td></tr>
+                        <tr><td>Log aktivitas</td><td><code>TEXT</code></td><td>Hindari indeks penuh, cukup indeks timestamp</td></tr>
+                        <tr><td>Token JWT</td><td><code>VARCHAR(500)</code></td><td>Token bisa panjang, jangan CHAR</td></tr>
+                        <tr><td>Gambar (path)</td><td><code>VARCHAR(500)</code></td><td>Jangan simpan blob di DB, simpan di object storage</td></tr>
+                        <tr><td>Status pesanan</td><td><code>ENUM</code> atau <code>SMALLINT</code> + lookup</td><td>ENUM lebih ketat, lookup lebih fleksibel</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section style="margin-top: 3rem;">
+            <div class="card" style="border-left: 4px solid var(--green);">
+                <h3>✅ Kesimpulan: Fondasi Aplikasi Kokoh Dimulai dari Tipe Data</h3>
+                <p>
+                    Pemilihan tipe data adalah keputusan arsitektural, bukan sekadar teknis. Dengan mengikuti panduan yang telah diperkaya studi kasus di atas, Anda akan menghasilkan sistem yang:
+                </p>
+                <ul style="list-style: '✓ '; padding-left: 1.5rem; color: var(--text);">
+                    <li><strong>Performa optimal</strong> sejak hari pertama — indeks ramping, query efisien</li>
+                    <li><strong>Biaya infrastruktur lebih rendah</strong> — penyimpanan dan memori lebih hemat</li>
+                    <li><strong>Integritas data terjamin</strong> — tidak ada selisih saldo atau bug zona waktu</li>
+                    <li><strong>Mudah di-scale</strong> — tipe data yang tepat memudahkan sharding dan replikasi</li>
+                    <li><strong>Kode yang mendokumentasikan diri sendiri</strong> — tipe eksplisit menjelaskan domain</li>
+                </ul>
+                <p style="margin-top: 0.8rem;">
+                    <em>“Detail kecil dalam tipe data adalah pembeda antara sistem yang bertahan 10 tahun dan yang harus ditulis ulang setelah 6 bulan.”</em>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>📘 <strong>TipeData.id</strong> — Edisi Lengkap dengan Studi Kasus JOIN & Array. Dibuat untuk programmer dan DBA Indonesia.</p>
+        <p><small>Cakupan: SQL (MySQL, PostgreSQL, SQL Server), Java, Python, Go, JavaScript, C#. Diperbarui 2026.</small></p>
+    </footer>
+</body>
+</html>
